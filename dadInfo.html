@@ -34,12 +34,12 @@
         -webkit-transition: all 600ms;
         transition: all 600ms;
         z-index: 20;
+        border: 1px solid skyblue;
 	}
     .card div {
         position: absolute;
         height: 100%;
         width: 100%;
-        background: burntorange;
         text-align: center;
         line-height: 200px;
         -webkit-backface-visibility: hidden;
@@ -52,10 +52,11 @@
     }
 
     .card #nameBackContent {
-        background: blue;
+        background: lightblue;
         color: #FFF;
         -webkit-transform: rotateX(180deg);
         transform: rotateX(180deg);
+        border: 1px solid skyblue;
     }
     label:hover .card {
         -webkit-transform: rotateX(20deg);
@@ -96,13 +97,13 @@
         </div>
     </label>
 
-    <p id="demo"></p>
+    <p id="nameOutput"></p>
     <p id="location"></p>
     <p id="eyeColor"></p>
     <p id="age"></p>
 
     <script>
-      function Person(first, middle, last, suffix, age, eye) {
+      function Person(first, middle, last, age, eye, suffix) {
           this.firstName = first;
           this.middleName = middle;
           this.lastName = last;
@@ -111,21 +112,24 @@
           this.eyeColor = eye;
       }
       Person.prototype.fullName = function() {
-          return this.firstName + " " + this.middleName + " " + this.lastName + " " + this.suffix;
+          if(this.suffix) {
+            return this.firstName + " " + this.middleName + " " + this.lastName + " " + this.suffix;
+          }
+          return this.firstName + " " + this.middleName + " " + this.lastName;
       };
-      Person.prototype.cityState = "Grand Rapids, Michigan";
+      Person.prototype.cityState = "The Sky, above Earth";
 
-      var myFather = new Person("John", "Norman", "deGuise", "Sr.", 57, "brown");
+      var myFather = new Person("J.R.", "Bob", "Dobbs", "older than the universe", "undetermined");
       var fathersName = myFather.fullName();
-      var fathersNameOutput = "My father's name is " + fathersName;
+      var fathersNameOutput = "My father's name is " + fathersName + ".";
       var fathersLocation = fathersName + " lives in " + myFather.cityState + ".";
-      var fathersAge = "My father is " + myFather.age + " years old.";
+      var fathersAge = "My father is " + myFather.age + ".";
       var fathersEyeColor = "My father's eye color is " + myFather.eyeColor + ".";
 
       document.getElementById('nameFrontContent').innerHTML = 'What is my Dad\'s Name?';
       document.getElementById('nameBackContent').innerHTML = fathersName;
       document.getElementById('name').innerHTML = fathersName;
-      document.getElementById("demo").innerHTML = fathersNameOutput;
+      document.getElementById("nameOutput").innerHTML = fathersNameOutput;
       document.getElementById('location').innerHTML = fathersLocation;
       document.getElementById('eyeColor').innerHTML = fathersEyeColor;
       document.getElementById('age').innerHTML = fathersAge;
