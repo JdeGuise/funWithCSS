@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <style>
+  	@import url(https://fonts.googleapis.com/css?family=Open+Sans);
+    body {
+      background: lightblue;
+      font-family: Open Sans;
+      color: #222;
+    }
+    h2 {
+      text-align: center;
+    }
+	label {
+        -webkit-perspective: 1000px;
+        perspective: 1000px;
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        display: block;
+        width: 300px;
+        height: 200px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        cursor: pointer;
+    }
+    .card {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        -webkit-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+        -webkit-transition: all 600ms;
+        transition: all 600ms;
+        z-index: 20;
+	}
+    .card div {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        background: burntorange;
+        text-align: center;
+        line-height: 200px;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        border-radius: 2px;
+    }
+
+	.card #nameFrontContent {
+    	color: white;
+    }
+
+    .card #nameBackContent {
+        background: blue;
+        color: #FFF;
+        -webkit-transform: rotateX(180deg);
+        transform: rotateX(180deg);
+    }
+    label:hover .card {
+        -webkit-transform: rotateX(20deg);
+        transform: rotateX(20deg);
+        box-shadow: 0 20px 20px rgba(50,50,50,.2);
+    }
+    input {
+        display: none;
+    }
+
+    :checked + .card {
+        transform: rotateX(180deg);
+        -webkit-transform: rotateX(180deg);
+    }
+
+    label:hover :checked + .card {
+        transform: rotateX(160deg);
+        -webkit-transform: rotateX(160deg);
+        box-shadow: 0 20px 20px rgba(255,255,255,.2);
+    }
+  </style>
+  <body>
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <h2>JavaScript Object Prototyping</h2>
+
+    <u>
+        <h3 id="name"></h3>
+    </u>
+
+    <label>
+    	<input type="checkbox" />
+        <div class="card">
+       		<div id="nameFrontContent">
+            </div>
+            <div id="nameBackContent">
+            </div>
+        </div>
+    </label>
+
+    <p id="demo"></p>
+    <p id="location"></p>
+    <p id="eyeColor"></p>
+    <p id="age"></p>
+
+    <script>
+      function Person(first, middle, last, suffix, age, eye) {
+          this.firstName = first;
+          this.middleName = middle;
+          this.lastName = last;
+          this.suffix = suffix;
+          this.age = age;
+          this.eyeColor = eye;
+      }
+      Person.prototype.fullName = function() {
+          return this.firstName + " " + this.middleName + " " + this.lastName + " " + this.suffix;
+      };
+      Person.prototype.cityState = "Grand Rapids, Michigan";
+
+      var myFather = new Person("John", "Norman", "deGuise", "Sr.", 57, "brown");
+      var fathersName = myFather.fullName();
+      var fathersNameOutput = "My father's name is " + fathersName;
+      var fathersLocation = fathersName + " lives in " + myFather.cityState + ".";
+      var fathersAge = "My father is " + myFather.age + " years old.";
+      var fathersEyeColor = "My father's eye color is " + myFather.eyeColor + ".";
+
+      document.getElementById('nameFrontContent').innerHTML = 'What is my Dad\'s Name?';
+      document.getElementById('nameBackContent').innerHTML = fathersName;
+      document.getElementById('name').innerHTML = fathersName;
+      document.getElementById("demo").innerHTML = fathersNameOutput;
+      document.getElementById('location').innerHTML = fathersLocation;
+      document.getElementById('eyeColor').innerHTML = fathersEyeColor;
+      document.getElementById('age').innerHTML = fathersAge;
+    </script>
+  </body>
+</html>
